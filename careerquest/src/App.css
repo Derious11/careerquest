@@ -1,0 +1,882 @@
+/* App Shell */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #fff;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.app-header nav button {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.app-header nav button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.app-header nav button.active {
+  background: rgba(100, 108, 255, 0.2);
+  color: #646cff;
+  border-color: #646cff;
+}
+
+.app-header nav button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.app-footer button.link {
+  background: none;
+  border: none;
+  color: #646cff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* UI Components */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn.primary {
+  background: #646cff;
+  color: white;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #535bf2;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn.ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.btn.outline {
+  background: transparent;
+  color: #646cff;
+  border: 1px solid #646cff;
+}
+
+.btn.outline:hover:not(:disabled) {
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field span {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.field input,
+.field select {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: inherit;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: #646cff;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.field select option {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.5rem;
+}
+
+.field select option:hover,
+.field select option:focus {
+  background: #2a2a2a;
+  color: white;
+}
+
+/* Intro Screen */
+.intro-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.spline-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+}
+
+.spline-bg canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.fallback-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.fallback-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+}
+
+.fallback-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%),
+    linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.frost-gradient {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  backdrop-filter: blur(2px) saturate(1.2);
+  z-index: -1;
+}
+
+.intro-overlay {
+  text-align: center;
+  z-index: 1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.brand-mark {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #646cff, #535bf2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.brand-name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  max-width: 500px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: glass-shine 3s ease-in-out infinite;
+}
+
+@keyframes glass-shine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.hero-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.accent {
+  color: #646cff;
+}
+
+.accent-2 {
+  color: #60d6b8;
+}
+
+.muted {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mt-12 { margin-top: 3rem; }
+.mt-10 { margin-top: 2.5rem; }
+.mt-4 { margin-top: 1rem; }
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row.end {
+  justify-content: flex-end;
+}
+
+.row.between {
+  justify-content: space-between;
+}
+
+.gap {
+  gap: 1rem;
+}
+
+.block {
+  display: block;
+}
+
+/* Avatar Selector */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+/* Tech Cards (MTG Style) */
+.mtg-card {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border: 2px solid var(--accent, #646cff);
+  border-radius: 12px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mtg-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mtg-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--accent, #646cff);
+}
+
+.mtg-card:hover::before {
+  opacity: 1;
+}
+
+.mtg-card.selected {
+  border-color: #ffd36b;
+  box-shadow: 
+    0 0 30px rgba(255, 211, 107, 0.4),
+    0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px);
+}
+
+.mtg-inner {
+  padding: 1rem;
+  color: white;
+  text-align: left;
+}
+
+.mtg-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.mtg-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.rarity {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.rarity.common { background: #c0c0c0; }
+.rarity.rare { background: #ffd700; }
+.rarity.legendary { background: #ff6b35; }
+
+.mtg-art {
+  position: relative;
+  height: 120px;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mtg-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foil {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.15) 50%, transparent 70%),
+    linear-gradient(-45deg, transparent 40%, rgba(100, 108, 255, 0.1) 60%, transparent 80%);
+  pointer-events: none;
+  animation: foil-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes foil-shimmer {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: translateX(-10px);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: translateX(10px);
+  }
+}
+
+.mtg-type {
+  font-size: 0.8rem;
+  color: var(--accent, #646cff);
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.mtg-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  margin: 0.5rem 0;
+}
+
+.mtg-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.5rem;
+}
+
+/* Career Map */
+.tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.track {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.track-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.track-head h3 {
+  margin: 0;
+  color: white;
+}
+
+.track-head small {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.track ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.track li {
+  margin-bottom: 0.5rem;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.task:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.task.done {
+  opacity: 0.7;
+}
+
+.task.done span {
+  text-decoration: line-through;
+}
+
+.task input[type="checkbox"] {
+  margin: 0;
+}
+
+.task span {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Quiz Journey */
+.quiz-header {
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #646cff, #535bf2);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.quiz-progress {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.quiz-question {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.result-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 2px solid var(--accent, #646cff);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent, #646cff), transparent);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.result-title {
+  font-size: 2rem;
+  color: var(--accent, #646cff);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.result-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.answer-option {
+  background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  border: 2px solid rgba(100, 108, 255, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.answer-option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.answer-option:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #646cff;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(100, 108, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.answer-option:hover::before {
+  opacity: 1;
+}
+
+.answer-option:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.answer-option-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.answer-option-hint {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+/* Start Journey Button */
+.journey-cta {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.journey-btn {
+  background: linear-gradient(135deg, #646cff, #535bf2);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(100, 108, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.journey-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(100, 108, 255, 0.4);
+}
+
+.journey-btn:hover::before {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quiz-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .row.between {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .quiz-question {
+    font-size: 1.2rem;
+  }
+  
+  .result-title {
+    font-size: 1.5rem;
+  }
+  
+  .answer-option:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+/* Quiz answer cards — align with intro glass-panel theme */
+.answer-option {
+  /* glassy panel like the intro */
+  background: linear-gradient(180deg, rgba(18,24,50,.72), rgba(12,20,54,.65));
+  border: 1px solid rgba(40,64,140,.55);
+  border-radius: 16px;
+  padding: 16px 18px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.04);
+
+  /* keep the grid layout we added earlier */
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  grid-template-areas: "icon copy check";
+  align-items: center;
+  gap: 12px;
+
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.answer-option:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 26px 72px rgba(0,0,0,.45),
+    0 0 0 1px rgba(122,162,255,.18) inset; /* subtle gleam */
+}
+
+.answer-option.selected {
+  border-color: var(--accent, #7aa2ff);
+  box-shadow:
+    0 26px 72px rgba(0,0,0,.45),
+    0 0 22px rgba(122,162,255,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* Icon tile matches the intro’s soft chrome */
+.answer-icon {
+  grid-area: icon;
+  width: 44px; height: 44px; border-radius: 10px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(80% 80% at 50% 20%, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+
+.answer-icon svg {
+  width: 24px;
+  height: 24px;
+  color: #7aa2ff;                 /* glowing blue */
+  stroke-width: 2.2;              /* a bit bolder */
+  filter: drop-shadow(0 0 6px rgba(122,162,255,0.7));
+}
+
+/* Copy hierarchy like the hero panel */
+.answer-option-label {
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #e8edff;
+}
+.answer-option-hint {
+  color: rgba(232,237,255,.70);
+}
+
+/* Check badge in the same glass tone */
+.answer-check {
+  grid-area: check;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.06);
+}
+
+/* Default check icon (muted) */
+.answer-check svg {
+  width: 18px;
+  height: 18px;
+  color: rgba(232,237,255,.6);
+}
+
+/* When the option is selected, make the check glow green */
+.answer-option.selected .answer-check svg {
+  color: #4ade80; /* Tailwind emerald-400 */
+  filter: drop-shadow(0 0 6px rgba(74,222,128,0.8));
+}
+
+/* Keep the tiny hotkey and ripple from before (optional) */
+.answer-hotkey {
+  position: absolute; top: 8px; left: 10px;
+  font-size: 10px; color: rgba(232,237,255,.7);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: 2px 6px; border-radius: 999px; pointer-events: none;
+}
+.answer-option .answer-ripple {
+  position: absolute; inset: 0;
+  background: radial-gradient(120px 120px at var(--x,50%) var(--y,50%), rgba(255,255,255,.12), transparent 60%);
+  opacity: 0; transition: opacity .35s ease;
+}
+.answer-option:active .answer-ripple { opacity: 1; transition: opacity .6s ease; }

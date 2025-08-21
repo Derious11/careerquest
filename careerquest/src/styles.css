@@ -1,0 +1,275 @@
+:root {
+--bg: #0b1020;
+--muted: #a3acc2;
+--panel: #121832;
+--panel-2: #0e1430;
+--text: #e8edff;
+--accent: #7aa2ff;
+--accent-2: #9bffd1;
+--warn: #ffb770;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+margin: 0; background: radial-gradient(1000px 600px at 70% -10%, #1a234a, var(--bg));
+color: var(--text); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial;
+}
+.app-shell { min-height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+.app-header { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-bottom: 1px solid #1e2a5a; background: linear-gradient(180deg, #0c1330, #0a1028); }
+.app-header h1 { font-size: 18px; margin: 0; letter-spacing: 0.5px; }
+.app-header nav { display: flex; gap: 8px; }
+.app-header button { background: transparent; border: 1px solid #22306b; color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; }
+.app-header button.active { background: #1a265a; border-color: #2b3c88; }
+.app-header button:disabled { opacity: .5; cursor: not-allowed; }
+
+
+.app-main { padding: 24px; max-width: 980px; margin: 0 auto; width: 100%; }
+.app-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 20px; border-top: 1px solid #1e2a5a; color: var(--muted); }
+.app-footer .link { background: transparent; border: none; color: var(--accent); cursor: pointer; text-decoration: underline; }
+
+
+.card { background: linear-gradient(180deg, var(--panel), var(--panel-2)); border: 1px solid #1f2a5a; border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.card h2 { margin-top: 0; letter-spacing: .4px; }
+.muted { color: var(--muted); }
+.warn { color: var(--warn); margin: 8px 0 0; }
+
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin: 16px 0; }
+.field { display: grid; gap: 6px; }
+.field > span { font-size: 12px; color: var(--muted); }
+.field input, .field select { background: #0a1128; border: 1px solid #22306b; color: var(--text); padding: 10px 12px; border-radius: 10px; }
+
+
+.row { display: flex; align-items: center; }
+.row.end { justify-content: flex-end; }
+.row.between { justify-content: space-between; }
+.row.gap { gap: 8px; }
+
+
+.btn { border-radius: 10px; padding: 10px 14px; cursor: pointer; }
+.btn.primary { background: linear-gradient(180deg, #2747ff, #1a33b8); border: 1px solid #314fff; color: white; }
+.btn.ghost { background: transparent; border: 1px solid #22306b; color: var(--text); }
+.btn.outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+
+
+.avatar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 16px 0 8px; }
+.avatar { display: grid; gap: 8px; place-items: center; padding: 10px; background: #0c1330; border: 1px solid #1e2a5a; border-radius: 14px; cursor: pointer; }
+.avatar.selected { outline: 2px solid var(--accent-2); }
+.avatar svg { width: 100%; height: auto; border-radius: 10px; }
+.avatar-label { font-size: 12px; color: var(--muted); }
+
+
+.tracks { display: grid; gap: 16px; margin-top: 8px; }
+.track { border: 1px solid #1e2a5a; border-radius: 14px; overflow: hidden; }
+.track-head { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 14px; background: #0c1436; }
+.track ul { list-style: none; margin: 0; padding: 10px 14px; display: grid; gap: 8px; }
+.task { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #0a1128; border: 1px solid #1a265a; border-radius: 10px; }
+.task.done { opacity: .85; border-color: #2d7b5e; background: #0b1e26; }
+/* ---- INTRO + SPLINE ---- */
+.intro-wrapper { position: relative; min-height: calc(100dvh - 0px); }
+.spline-bg { position: absolute; inset: 0; overflow: hidden; }
+.spline-bg canvas, .spline-bg > div { width: 100%; height: 100%; display: block; }
+.fallback-bg {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, #233074 0%, #0b1020 60%),
+    radial-gradient(800px 400px at 10% 120%, #0e1740 0%, transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #090d1a 100%);
+  animation: hue 18s linear infinite;
+}
+@keyframes hue { 0% { filter: hue-rotate(0deg) } 100% { filter: hue-rotate(360deg) } }
+
+.frost-gradient {
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 40% at 50% 10%, rgba(10, 17, 40, 0.3), rgba(10, 17, 40, 0.7)),
+              linear-gradient(180deg, rgba(5,8,20,.1), rgba(5,8,20,.6));
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.intro-overlay {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.brand {
+  position: static; /* important: not absolute */
+  z-index: auto;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.brand-mark {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  background: linear-gradient(180deg, #2747ff, #1a33b8);
+  border: 1px solid #314fff; border-radius: 10px; font-weight: 700;
+}
+.brand-name { opacity: .9; font-weight: 600; letter-spacing: .3px; }
+
+.glass-panel {
+  width: min(840px, 92vw);
+  padding: 28px 28px 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(18, 24, 50, .72), rgba(12, 20, 54, .65));
+  border: 1px solid rgba(40, 64, 140, .55);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.hero-title { margin: 0 0 6px; font-size: clamp(28px, 4vw, 40px); letter-spacing: .4px; }
+.accent { color: #7aa2ff; }
+.accent-2 { color: #9bffd1; }
+
+.mt-10 { margin-top: 10px; } .mt-12 { margin-top: 12px; }
+.block { display: block; }
+/* Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin: 16px 0 8px;
+}
+
+/* MTG-like card */
+.mtg-card {
+  --accent: #7aa2ff;
+  aspect-ratio: 63 / 120;
+  width: 100%;
+  background: #0a1128;
+  border: 1px solid #1f2a5a;
+  border-radius: 16px;
+  padding: 6px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  transition: transform .2s ease, box-shadow .2s ease;
+  text-align: left;
+}
+.mtg-card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,.45); }
+.mtg-card.selected { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.mtg-inner {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto auto;
+  gap: 6px;
+  background: linear-gradient(180deg, #121832, #0e1436);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* Title bar */
+.mtg-titlebar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+.mtg-title { font-weight: 700; letter-spacing: .3px; }
+.rarity { width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
+.rarity.common { background: #cbd5e1; }
+.rarity.rare { background: #60a5fa; }
+.rarity.legendary { background: #fbbf24; }
+
+/* Art box */
+.mtg-art {
+  aspect-ratio: 3 / 4;          /* keep or switch to 2/3 if you want taller */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.06);
+  background: #0c1330;
+  align-self: stretch;
+}
+
+.mtg-art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;             /* use 'contain' to avoid any crop */
+  object-position: center var(--face-y, 30%); /* default: slightly high to protect heads */
+}
+.mtg-art .foil {
+  position: absolute; inset: 0; pointer-events: none;
+  background: conic-gradient(from 0deg, transparent, rgba(255,255,255,.12), transparent 25%);
+  mix-blend-mode: overlay; opacity: .0; transition: opacity .25s ease;
+}
+.mtg-card:hover .foil { opacity: .35; }
+
+/* Type ribbon */
+.mtg-type {
+  font-size: 12px; color: #9fb0d9;
+  border-left: 3px solid var(--accent);
+  padding: 6px 8px; border-radius: 6px; background: #0a1128;
+  border: 1px solid #1e2a5a;
+}
+
+/* Text box */
+.mtg-text {
+  font-size: 12px; color: #c9d3f2; line-height: 1.35;
+  background: #0a1128; border: 1px solid #1e2a5a;
+  border-radius: 8px; padding: 8px;
+}
+
+/* Footer */
+.mtg-footer { display:flex; justify-content:space-between; font-size:11px; color:#8ea2d8; opacity:.9; }
+
+/* --- Hero Result: compact, mobile-first layout --- */
+.hero-result {
+  max-width: 560px;              /* cap overall content width */
+  margin: 0 auto;
+}
+
+/* tighten the header block spacing on result page */
+.hero-result .hero-head {
+  margin-bottom: 8px;
+  padding: 12px 16px; 
+}
+
+/* center the card and cap its width so it fits on phones */
+.hero-card-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* shrink only on the result screen (scoped) */
+.hero-card-wrap .mtg-card {
+  width: 240px;                  /* default compact width */
+}
+
+/* This app already uses a mobile-friendly shell; reinforce it here */
+@media (max-width: 480px) {
+  .app-main {                    /* reduce outer padding on phones */
+    padding: 16px;
+  }
+
+  .card {                        /* your .card frame is fairly roomy; trim a bit on phones */
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .hero-result .result-title {   /* slightly smaller heading on phones */
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .hero-result .result-description {
+    font-size: 14px;
+  }
+
+  .hero-card-wrap .mtg-card {
+    width: 210px;                /* even smaller on narrow screens */
+  }
+}
+
+.hero-subtitle,
+#hero-summary-title { text-align: center !important; }
