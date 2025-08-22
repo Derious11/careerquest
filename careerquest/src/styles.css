@@ -273,3 +273,14 @@ color: var(--text); font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Ari
 
 .hero-subtitle,
 #hero-summary-title { text-align: center !important; }
+
+/* --- Mobile fixes for Intro Screen --- */
+@media (max-width: 480px) {
+  .intro-overlay {
+    padding: 15px; /* Reduce the outer padding */
+  }
+
+  .glass-panel {
+    padding: 20px; /* Reduce the panel's internal padding */
+  }
+}

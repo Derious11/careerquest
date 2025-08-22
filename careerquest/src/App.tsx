@@ -34,79 +34,83 @@ export default function App() {
     [profile]
   )
 
-  return (
-    <div className="app-shell">
-      {step !== 'intro' && (
+// In App.tsx
+
+// In App.tsx
+
+return (
+  <>
+    {step === 'intro' ? (
+      // If it's the intro step, render ONLY the IntroScreen
+      <IntroScreen
+        value={profile}
+        onChange={(p) => setProfile((prev) => ({ ...prev, ...p }))}
+        onContinue={() => setStep('avatar')}
+        onStartQuiz={() => setStep('quiz')}
+      />
+    ) : (
+      // For all other steps, render the main app layout
+      <div className="app-shell">
         <header className="app-header">
           <h1>CareerQuest</h1>
           <nav>
-            
+            {/* The "Home" button has been removed from here */}
             <button className={step === 'avatar' ? 'active' : ''} onClick={() => setStep('avatar')}>
               Avatar
             </button>
-           
           </nav>
         </header>
-      )}
 
-      <main className="app-main">
-        {step === 'intro' && (
-          <IntroScreen
-            value={profile}
-            onChange={(p) => setProfile((prev) => ({ ...prev, ...p }))}
-            onContinue={() => setStep('avatar')}
-            onStartQuiz={() => setStep('quiz')}
-          />
-        )}
+        <main className="app-main">
+          {step === 'avatar' && (
+            <AvatarSelector
+              gender={profile.gender}
+              selectedId={profile.avatarId}
+              onBack={() => setStep('intro')}
+              onSelect={(id) => setProfile((p) => ({ ...p, avatarId: id }))}
+              onContinue={() => setStep('quiz')}
+            />
+          )}
 
-        {step === 'avatar' && (
-          <AvatarSelector
-            gender={profile.gender}
-            selectedId={profile.avatarId}
-            onBack={() => setStep('intro')}
-            onSelect={(id) => setProfile((p) => ({ ...p, avatarId: id }))}
-            onContinue={() => setStep('quiz')}
-          />
-        )}
+          {step === 'map' && <CareerMap profile={profile} onBack={() => setStep('avatar')} />}
 
-        {step === 'map' && <CareerMap profile={profile} onBack={() => setStep('avatar')} />}
+          {step === 'quiz' && (
+            <QuizJourney
+              onBack={() => setStep('intro')}
+              onComplete={(hero) => {
+                setHeroClass(hero)
+                setStep('result')
+              }}
+            />
+          )}
 
-        {step === 'quiz' && (
-          <QuizJourney
-            onBack={() => setStep('intro')}
-            onComplete={(hero) => {
-              setHeroClass(hero)
-              // optional: store on profile too, if you extend the type
-              // setProfile(p => ({ ...p, heroClass: hero }));
-              // optional: localStorage.removeItem('careerquest.quiz.v1');
-              setStep('result')
+          {step === 'result' && heroClass && (
+            <HeroResult
+              hero={heroClass as any}
+              onBackToQuiz={() => setStep('quiz')}
+              onGoToMap={() => setStep('map')}
+              onGoToAvatar={() => setStep('avatar')}
+            />
+          )}
+        </main>
+
+        <footer className="app-footer">
+          <small>Local prototype · progress saved to your browser</small>
+          <button
+            className="link"
+            onClick={() => {
+              localStorage.removeItem(STORAGE_KEY)
+              localStorage.removeItem('careerquest.quiz.v1')
+              location.reload()
             }}
-          />
-        )}
-
-        {step === 'result' && heroClass && (
-          <HeroResult
-            hero={heroClass as any}
-            onBackToQuiz={() => setStep('quiz')}
-            onGoToMap={() => setStep('map')}
-            onGoToAvatar={() => setStep('avatar')}
-          />
-        )}
-      </main>
-
-      <footer className="app-footer">
-        <small>Local prototype · progress saved to your browser</small>
-        <button
-          className="link"
-          onClick={() => {
-            localStorage.removeItem(STORAGE_KEY)
-            localStorage.removeItem('careerquest.quiz.v1')
-            location.reload()
-          }}
-        >
-          Reset Progress
-        </button>
-      </footer>
-    </div>
-  )
+          >
+            Reset Progress
+          </button>
+        </footer>
+      </div>
+    )}
+  </>
+)
 }
+
+
