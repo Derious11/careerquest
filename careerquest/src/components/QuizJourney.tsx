@@ -1,5 +1,5 @@
 // src/components/QuizJourney.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import React, { JSX, useEffect, useMemo, useState } from "react";
 import AnswerOption from "./AnswerOption";
 import {
   Wrench, Server, Rocket, Shield,        // Q1

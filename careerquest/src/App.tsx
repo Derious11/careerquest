@@ -5,7 +5,8 @@ import AvatarSelector from './components/AvatarSelector'
 import CareerMap from './components/CareerMap'
 import QuizJourney from './components/QuizJourney'
 import HeroResult from './components/HeroResult'
-import type { Step, PlayerProfile } from './types'
+import type { Step } from './types'
+import type { PlayerProfile } from './types'
 import './App.css'
 import './styles.css'
 
@@ -39,9 +40,7 @@ export default function App() {
         <header className="app-header">
           <h1>CareerQuest</h1>
           <nav>
-            <button className={step === 'intro' ? 'active' : ''} onClick={() => setStep('intro')}>
-              Home
-            </button>
+            
             <button className={step === 'avatar' ? 'active' : ''} onClick={() => setStep('avatar')}>
               Avatar
             </button>

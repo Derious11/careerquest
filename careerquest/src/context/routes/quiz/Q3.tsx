@@ -1,49 +1,38 @@
+// src/context/routes/quiz/Q3.tsx
 import React from "react";
-setAnswer("q3", k);
-navigate("/quiz/q4");
+
+type Props = {
+  onSelect: (value: string) => void;
 };
 
+export default function Q3({ onSelect }: Props) {
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Q3: Pick your ultimate weapon!</h2>
 
-return (
-<div className="space-y-4">
-<h2 className="text-lg font-semibold">Q3: Pick your ultimate weapon!</h2>
-<div className="grid gap-3">
-<AnswerOption
-label="🔌 Power Tools & Cables"
-hint="→ Hardware Hero"
-onClick={() => pick("hardwareHero")}
-/>
-<AnswerOption
-label="🐧 Terminal Command Line"
-hint="→ Cluster Commander"
-onClick={() => pick("clusterCommander")}
-/>
-<AnswerOption
-label="☁️ Terraform Spellbook"
-hint="→ Cloud Architect"
-onClick={() => pick("cloudArchitect")}
-/>
-<AnswerOption
-label="🤖 AI Launcher Pad"
-hint="→ Model Launcher"
-onClick={() => pick("modelLauncher")}
-/>
-<AnswerOption
-label="📊 Data Pipeline"
-hint="→ Data Master"
-onClick={() => pick("dataMaster")}
-/>
-<AnswerOption
-label="🌐 Fiber Optic Blade"
-hint="→ Network Weaver"
-onClick={() => pick("networkWeaver")}
-/>
-<AnswerOption
-label="🔒 Firewall Shield"
-hint="→ Security Guardian"
-onClick={() => pick("securityGuardian")}
-/>
-</div>
-</div>
-);
+      <div className="grid gap-3">
+        <button className="btn" onClick={() => onSelect("hardware_hero")}>
+          🔧 Titan Wrench — (Hardware Hero)
+        </button>
+        <button className="btn" onClick={() => onSelect("cluster_commander")}>
+          🐧 Bash Blade — (Cluster Commander)
+        </button>
+        <button className="btn" onClick={() => onSelect("cloud_architect")}>
+          ☁️ Terraform Codex — (Cloud Architect)
+        </button>
+        <button className="btn" onClick={() => onSelect("model_launcher")}>
+          🚀 Deployment Launcher — (Model Launcher)
+        </button>
+        <button className="btn" onClick={() => onSelect("data_master")}>
+          💾 Data Ladle — (Data Master)
+        </button>
+        <button className="btn" onClick={() => onSelect("network_weaver")}>
+          🌐 InfiniBlade — (Network Weaver)
+        </button>
+        <button className="btn" onClick={() => onSelect("security_guardian")}>
+          🛡️ Zero‑Trust Shield — (Security Guardian)
+        </button>
+      </div>
+    </div>
+  );
 }

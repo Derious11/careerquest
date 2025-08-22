@@ -284,7 +284,7 @@ function AudioSummary({
                 if (!audioRef.current || !duration) return;
                 const rect = (e.target as HTMLElement).getBoundingClientRect();
                 const x =
-                  "clientX" in e ? (e as MouseEvent).clientX - rect.left : 0;
+                  "clientX" in e ? (e as unknown as MouseEvent).clientX - rect.left : 0;
                 const ratio = Math.min(1, Math.max(0, x / rect.width));
                 audioRef.current.currentTime = ratio * duration;
               }}

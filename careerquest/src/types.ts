@@ -1,14 +1,11 @@
 export type Gender = 'male' | 'female' | 'nonbinary' | 'unspecified'
-
+export type Step = 'intro' | 'avatar' | 'map' | 'quiz' | 'result';
 
 export type PlayerProfile = {
 displayName: string
 gender: Gender
 avatarId: number | null
 }
-
-
-export type Step = 'intro' | 'avatar' | 'map' | 'quiz' | 'result';
 
 // src/types.ts
 export type HeroKey =
